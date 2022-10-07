@@ -1,2 +1,2 @@
-# Blackjack
-Play Blackjack
+Play Blackjack:
+# https://lucasfromdk.github.io/Blackjack/
