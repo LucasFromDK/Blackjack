@@ -10,7 +10,7 @@ function setup() {
 function CardManager() {
   cardDrawer()
   cardDrawer()
-  dealerDraw()
+  dealerDrawer()
 }
 
 function cardDrawer() {
@@ -26,7 +26,7 @@ function cardDrawer() {
   }
 }
 
-function dealerDraw() {
+function dealerDrawer() {
   drawnCard = int(random(13));
   if (drawnCard == 11 || drawnCard == 12 || drawnCard == 13) {
     dealerScore += 10;
