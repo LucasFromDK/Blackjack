@@ -13,6 +13,16 @@ function CardManager() {
   dealerDrawer()
 }
 
+function ButtonInput() {
+  button = createButton("Hit");
+  button.position(10, windowHeight / 2);
+  button.mousePressed(Hit);
+  
+  button = createButton("Stand");
+  button.position(windowWidth - 75, windowHeight / 2);
+  button.mousePressed(Stand);
+}
+
 function cardDrawer() {
   drawnCard = int(random(13));
   if (drawnCard == 11 || drawnCard == 12 || drawnCard == 13) {
@@ -37,16 +47,6 @@ function dealerDrawer() {
   } else {
     dealerScore += drawnCard;
   }
-}
-
-function ButtonInput() {
-  button = createButton("Hit");
-  button.position(10, windowHeight / 2);
-  button.mousePressed(Hit);
-  
-  button = createButton("Stand");
-  button.position(windowWidth - 75, windowHeight / 2);
-  button.mousePressed(Stand);
 }
 
 function draw() {
