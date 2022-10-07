@@ -10,11 +10,6 @@ function setup() {
 function CardManager() {
   cardDrawer()
   cardDrawer()
-
-  if(playerScore == 21) {
-    text("Blackjack", width / 2 - 100, height / 2)
-  }
-
   dealerDraw()
 }
 
