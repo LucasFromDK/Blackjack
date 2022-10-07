@@ -68,14 +68,16 @@ function winnerText() {
 }
 
 function Hit() {
-  if (playerScore < 22 && stand == false) {
+  if (playerScore < 21 && stand == false) {
     cardDrawer()
   }
 }
 
 function Stand() {
+  if(playerScore <= 21) {
   dealerTurn()
   stand = true
+  }
 }
 
 function dealerTurn() {
