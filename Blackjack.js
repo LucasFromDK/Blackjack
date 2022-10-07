@@ -1,7 +1,7 @@
 let bjScore = 0;
 let drawnCard = 0;
-let cardScore = 0;
-let dealScore = 0;
+let playerScore = 0;
+let dealerScore = 0;
 let stand = false;
 
 function setup() {
@@ -12,49 +12,50 @@ function setup() {
 function CardManager(){
   drawnCard = int(random(13));
   if (drawnCard == 11 || drawnCard == 12 || drawnCard == 13) {
-    cardScore += 10;
-  } else if (drawnCard == 1 && cardScore <= 10) {
-    cardScore += 11;
-  } else if (drawnCard == 1 && cardScore > 10) {
-    cardScore += 1;
+    playerScore += 10;
+  } else if (drawnCard == 1 && playerScore <= 10) {
+    playerScore += 11;
+  } else if (drawnCard == 1 && playerScore > 10) {
+    playerScore += 1;
   } else {
-    cardScore += drawnCard;
+    playerScore += drawnCard;
   }
 
   drawnCard = int(random(13));
   if (drawnCard == 11 || drawnCard == 12 || drawnCard == 13) {
-    cardScore += 10;
-  } else if (drawnCard == 1 && cardScore <= 10) {
-    cardScore += 11;
-  } else if (drawnCard == 1 && cardScore > 10) {
-    cardScore += 1;
+    playerScore += 10;
+  } else if (drawnCard == 1 && playerScore <= 10) {
+    playerScore += 11;
+  } else if (drawnCard == 1 && playerScore > 10) {
+    playerScore += 1;
   } else {
-    cardScore += drawnCard;
+    playerScore += drawnCard;
   }
 
   drawnCard = int(random(13));
   if (drawnCard == 11 || drawnCard == 12 || drawnCard == 13) {
-    dealScore += 10;
-  } else if (drawnCard == 1 && dealScore <= 10) {
-    dealScore += 11;
-  } else if (drawnCard == 1 && dealScore > 10) {
-    dealScore += 1;
+    dealerScore += 10;
+  } else if (drawnCard == 1 && dealerScore <= 10) {
+    dealerScore += 11;
+  } else if (drawnCard == 1 && dealerScore > 10) {
+    dealerScore += 1;
   } else {
-    dealScore += drawnCard;
+    dealerScore += drawnCard;
   }
 }
 
 function draw() {
   background(255);
-  standartText();
-  if (cardScore > 21) {
+  UserInterface();
+
+  if (playerScore > 21) {
     text("Dealer Win", width / 2 , height / 2);
   }
-  if ((cardScore > dealScore || dealScore > 21) && stand == true) {
+  if ((playerScore > dealerScore || dealerScore > 21) && stand == true) {
     text("You Win", width / 2 - 100, height / 2);
-  } else if (dealScore > cardScore && stand == true && cardScore < 22) {
+  } else if (dealerScore > playerScore && stand == true && playerScore < 22) {
     text("Dealer Win", width / 2 - 100, height / 2);
-  } else if (dealScore == cardScore && stand == true) {
+  } else if (dealerScore == playerScore && stand == true) {
     text("Push", width / 2 - 100, height / 2);
   }
 }
@@ -63,13 +64,13 @@ function mouseClicked() {
   if (mouseX < width / 2) {
     drawnCard = int(random(13));
     if (drawnCard == 11 || drawnCard == 12 || drawnCard == 13) {
-      cardScore += 10;
-    } else if (drawnCard == 1 && cardScore <= 10) {
-      cardScore += 11;
-    } else if (drawnCard == 1 && cardScore > 10) {
-      cardScore += 1;
+      playerScore += 10;
+    } else if (drawnCard == 1 && playerScore <= 10) {
+      playerScore += 11;
+    } else if (drawnCard == 1 && playerScore > 10) {
+      playerScore += 1;
     } else {
-      cardScore += drawnCard;
+      playerScore += drawnCard;
     }
   } else {
     dealerTurn();
@@ -78,27 +79,35 @@ function mouseClicked() {
 }
 
 function dealerTurn() {
-  while (dealScore < 17) {
+  while (dealerScore < 17) {
     drawnCard = int(random(13));
     if (drawnCard == 11 || drawnCard == 12 || drawnCard == 13) {
-      dealScore += 10;
-    } else if (drawnCard == 1 && dealScore <= 10) {
-      dealScore += 11;
-    } else if (drawnCard == 1 && dealScore > 10) {
-      dealScore += 1;
+      dealerScore += 10;
+    } else if (drawnCard == 1 && dealerScore <= 10) {
+      dealerScore += 11;
+    } else if (drawnCard == 1 && dealerScore > 10) {
+      dealerScore += 1;
     } else {
-      dealScore += drawnCard;
+      dealerScore += drawnCard;
     }
-    if (dealScore > 21) {
-      dealScore = " Over";
+    if (dealerScore > 21) {
+      dealerScore = dealerScore + ", Dealer Bust";
     }
   }
 }
 
-function standartText() {
+function UserInterface() {
+  fill("green")
+  rect(0, 0, width, 20)
+  textSize(12)
+  fill("white")
+  text("🃏 Blackjack | By: @LucasFromDK & @AugmentedDuck", 1, 15)
+  text("❌", windowWidth - 20, 15)
+  //Scores
+  fill("black")
   textSize(24);
-  text("Your Hand:" + cardScore, width / 2 - 100, 20);
-  text("Dealer Hand:" + dealScore, width / 2 - 100, 40);
+  text("Your Hand: " + playerScore, windowWidth / 2 - 100, 40);
+  text("Dealer Hand: " + dealerScore, windowWidth / 2 - 100, 60);
   text("Hit", 10, height / 2);
   text("Stand", width - 80, height / 2);
 }
