@@ -101,7 +101,7 @@ function UserInterface() {
   rect(0, 0, width, 20)
   textSize(12)
   fill("white")
-  text("🃏 Blackjack | By: @LucasFromDK & @AugmentedDuck", 1, 15)
+  text("🃏 Blackjack | By: @LucasFromDK & @Th3-Duck", 1, 15)
   text("❌", windowWidth - 20, 15)
   //Scores
   fill("black")
