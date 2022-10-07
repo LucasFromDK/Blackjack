@@ -47,11 +47,13 @@ function CardManager(){
 function draw() {
   background(255);
   UserInterface();
+  winnerText()
+}
 
+function winnerText() {
   if (playerScore > 21) {
     text("Dealer Win", width / 2 , height / 2);
-  }
-  if ((playerScore > dealerScore || dealerScore > 21) && stand == true) {
+  } if ((playerScore > dealerScore || dealerScore > 21) && stand == true) {
     text("You Win", width / 2 - 100, height / 2);
   } else if (dealerScore > playerScore && stand == true && playerScore < 22) {
     text("Dealer Win", width / 2 - 100, height / 2);
