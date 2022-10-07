@@ -47,7 +47,7 @@ function CardManager(){
 function draw() {
   background(255);
   UserInterface();
-  winnerText()
+  winnerText();
 }
 
 function winnerText() {
