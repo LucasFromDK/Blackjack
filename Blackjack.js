@@ -80,7 +80,7 @@ function Stand() {
 
 function dealerTurn() {
   while (dealerScore < 17) {
-  dealerDraw()
+  dealerDrawer()
   }
 }
 
