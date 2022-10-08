@@ -1,13 +1,5 @@
-let drawnCard = 0;
-let playerScore = 0;
-let dealerScore = 0;
-let playerHighAces = 0;
-let dealerHighAces = 0;
-let isStanding = false;
-let dealerWin = false;
-let playerWin = false;
-let isPush = false;
-let isBlackjack = false;
+let drawnCard = 0, playerScore = 0, dealerScore = 0, playerHighAces = 0, dealerHighAces = 0
+let isStanding = false, dealerWin = false, playerWin = false, isPush = false, isBlackjack = false
 
 function preload() {
   img = loadImage('images/Table Icon.png');
@@ -124,7 +116,7 @@ function displayText() {
   textAlign(CENTER)
   fill("black")
   textSize(24);
-  text("Player: " + playerScore + "\n" + "Dealer: " + dealerScore, width / 2, 45);
+  text("Player: " + playerScore + ", Aces: " + playerHighAces + " 🂡" + "\n" + "Dealer: " + dealerScore + ", Aces: " + dealerHighAces + " 🂡", width / 2, 45);
   if (isPush) {
     text("Push", width / 2, height / 2);
   } else if (isBlackjack) {
