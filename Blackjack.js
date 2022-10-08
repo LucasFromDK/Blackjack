@@ -76,11 +76,9 @@ function Stand() {
 
 function draw() {
   background(255);
-
   displayText();
 
   playerBustDetector();
-
   whoWon();
 }
 
