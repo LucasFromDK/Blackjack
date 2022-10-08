@@ -1,7 +1,10 @@
-let drawnCard = 0, playerScore = 0, dealerScore = 0, playerHighAces = 0, dealerHighAces = 0;
+let drawnCard = 0, playerScore = 0, dealerScore = 0, playerHighAces = 0, dealerHighAces = 0, hasPlayerMoved = 0;
 let isStanding = false, dealerWin = false, playerWin = false, isPush = false, isBlackjack = false;
 let chipScore = 1000, oldScore = 1000;
 let betAmount = 50;
+
+let surrenderButton = createButton("SURRENDER 25 CHIPS");
+let noSurrenderButton = createButton("NOT AVAILABE");
 
 function preload() {
   img = loadImage('images/Table Icon.png');
@@ -10,7 +13,6 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   gameStart()
-  ButtonInput();
 }
 
 function gameStart() {
@@ -34,7 +36,6 @@ function gameStart() {
 
     playerHit();
     playerHit();
-
     dealerHit();
 
     blackjackDetector();
@@ -42,23 +43,46 @@ function gameStart() {
 }
 
 function ButtonInput() {
+  //Left Side
   button = createButton("Hit");
   button.position(10, windowHeight / 2);
   button.size(100, 50);
   button.style("font-size", "24px");
   button.mousePressed(Hit);
   
+  button = createButton("Doubledown");
+  button.position(10, windowHeight / 2 + 60);
+  button.size(130, 50);
+  button.style("font-size", "20px");
+  button.mousePressed(doubleDown);
+
+  //Right Side
   button = createButton("Stand");
   button.position(windowWidth - 110, windowHeight / 2);
   button.size(100, 50);
   button.style("font-size", "24px");
   button.mousePressed(Stand);
 
-  button = createButton("Restart and Bet 50")
-  button.position(windowWidth / 2 - 100, 120);
+  //Middle
+  button = createButton("Restart and Bet 50");
+  button.position(windowWidth / 2 - 100, 115);
   button.size(200, 30);
   button.style("font-size", "20px");
-  button.mousePressed(gameStart)
+  button.mousePressed(gameStart);
+
+  //Surrender + Surrencer Blocker
+  if (hasPlayerMoved <= 2) {
+    button = createButton("Surrender for 25");
+    button.position(windowWidth / 2 - 100, 150);
+    button.size(200, 30);
+    button.style("font-size", "20px");
+    button.mousePressed(Surrender);
+  } else if (hasPlayerMoved > 2) {
+    button = createButton("Not Availabe");
+    button.position(windowWidth / 2 - 100, 150);
+    button.size(200, 30);
+    button.style("font-size", "20px");
+  }
 }
 
 function Hit() {
@@ -84,15 +108,19 @@ function draw() {
 
 
 function playerHit() {
-  drawnCard = int(random(1, 14));
+  if (!isStanding) {
+    drawnCard = int(random(1, 14));
 
-  if (drawnCard == 11 || drawnCard == 12 || drawnCard == 13) {
-    playerScore += 10;
-  } else if (drawnCard == 1) {
-    playerScore += 11;
-    playerHighAces++;
-  } else {
-    playerScore += drawnCard;
+    if (drawnCard == 11 || drawnCard == 12 || drawnCard == 13) {
+      playerScore += 10;
+    } else if (drawnCard == 1) {
+      playerScore += 11;
+      playerHighAces++;
+    } else {
+      playerScore += drawnCard;
+    }
+
+    hasPlayerMoved++;
   }
 }
 
@@ -141,7 +169,8 @@ function whoWon() {
 function displayText() {
   FancyUI()
   Scoreboard()
-  
+  ButtonInput()
+
   if (isPush) {
     text("Push", width / 2, height / 2);
     chipScore = oldScore + betAmount;
@@ -201,5 +230,21 @@ function blackjackDetector() {
       isBlackjack = true;
       isStanding = true;
     }
+  }
+}
+
+function doubleDown() {
+  if (chipScore >= betAmount && isStanding == false) {
+    chipScore -= 50;
+    betAmount = 100;
+    playerHit();
+    playerStand();
+  }
+}
+
+function Surrender() {
+  if (hasPlayerMoved <= 2) {
+    chipScore += betAmount / 2;
+    gameStart();
   }
 }
