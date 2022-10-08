@@ -24,7 +24,7 @@ function ButtonInput() {
 }
 
 function cardDrawer() {
-  drawnCard = int(random(13));
+  drawnCard = int(random(1, 13));
   if (drawnCard == 11 || drawnCard == 12 || drawnCard == 13) {
     playerScore += 10;
   } else if (drawnCard == 1 && playerScore <= 10) {
@@ -37,7 +37,7 @@ function cardDrawer() {
 }
 
 function dealerDrawer() {
-  drawnCard = int(random(13));
+  drawnCard = int(random(1, 13));
   if (drawnCard == 11 || drawnCard == 12 || drawnCard == 13) {
     dealerScore += 10;
   } else if (drawnCard == 1 && dealerScore <= 10) {
