@@ -137,6 +137,7 @@ function displayText() {
 }
 
 function FancyUI() {
+  textAlign(LEFT)
   fill("green");
   rect(0, 0, width, 20);
   textSize(16)
