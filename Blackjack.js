@@ -1,5 +1,7 @@
-let drawnCard = 0, playerScore = 0, dealerScore = 0, playerHighAces = 0, dealerHighAces = 0
-let isStanding = false, dealerWin = false, playerWin = false, isPush = false, isBlackjack = false
+let drawnCard = 0, playerScore = 0, dealerScore = 0, playerHighAces = 0, dealerHighAces = 0;
+let isStanding = false, dealerWin = false, playerWin = false, isPush = false, isBlackjack = false;
+let chipScore = 1000, oldScore = 1000;
+let betAmount = 50;
 
 function preload() {
   img = loadImage('images/Table Icon.png');
@@ -7,33 +9,61 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  gameStart()
+  ButtonInput();
+}
 
-  playerHit();
-  playerHit();
-  dealerHit();
+function gameStart() {
+  betAmount = 50;
 
-  blackjackDetector();
+  oldScore = chipScore;
+  if (chipScore >= betAmount) {
+    drawnCard = 0;
+    playerScore = 0;
+    dealerScore = 0;
+    playerHighAces = 0;
+    dealerHighAces = 0;
+    isStanding = false;
+    dealerWin = false;
+    playerWin = false;
+    isPush = false;
+    isBlackjack = false;
+    hasPlayerMoved = 0;
+    chipScore = oldScore - betAmount;
+    oldScore = chipScore;
 
-  ButtonInput()
+    playerHit();
+    playerHit();
+
+    dealerHit();
+
+    blackjackDetector();
+  }
 }
 
 function ButtonInput() {
   button = createButton("Hit");
   button.position(10, windowHeight / 2);
-  button.size(100, 50)
+  button.size(100, 50);
   button.style("font-size", "24px");
   button.mousePressed(Hit);
   
   button = createButton("Stand");
   button.position(windowWidth - 110, windowHeight / 2);
-  button.size(100, 50)
+  button.size(100, 50);
   button.style("font-size", "24px");
   button.mousePressed(Stand);
+
+  button = createButton("Restart and Bet 50")
+  button.position(windowWidth / 2 - 100, 120);
+  button.size(200, 30);
+  button.style("font-size", "20px");
+  button.mousePressed(gameStart)
 }
 
 function Hit() {
   if (playerScore < 21 && isStanding == false) {
-    playerHit()
+    playerHit();
   }
 }
 
@@ -112,20 +142,27 @@ function whoWon() {
 
 function displayText() {
   FancyUI()
-
-  textAlign(CENTER)
-  fill("black")
-  textSize(24);
-  text("Player: " + playerScore + ", Aces: " + playerHighAces + " 🂡" + "\n" + "Dealer: " + dealerScore + ", Aces: " + dealerHighAces + " 🂡", width / 2, 45);
+  Scoreboard()
+  
   if (isPush) {
     text("Push", width / 2, height / 2);
+    chipScore = oldScore + betAmount;
   } else if (isBlackjack) {
     text("Blackjack 🃏", width / 2, height / 2);
+    chipScore = oldScore + betAmount * 2 * (3 / 2);
   } else if (dealerWin) {
     text("Dealer Wins", width / 2, height / 2);
   } else if (playerWin) {
     text("Player Wins", width / 2, height / 2);
+    chipScore = oldScore + betAmount * 2;
   }
+}
+
+function Scoreboard() {
+  textAlign(CENTER)
+  fill("black")
+  textSize(24);
+  text("Chips: " + chipScore + "\nPlayer: " + playerScore + ", Aces: " + playerHighAces + " 🂡"  + "\nDealer: " + dealerScore + ", Aces: " + dealerHighAces + " 🂡", width / 2, 45);
 }
 
 function FancyUI() {
