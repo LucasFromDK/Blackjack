@@ -1,92 +1,142 @@
-let bjScore = 0, drawnCard = 0, playerScore = 0, dealerScore = 0;
-let stand = false;
+let drawnCard = 0;
+let playerScore = 0;
+let dealerScore = 0;
+let playerHighAces = 0;
+let dealerHighAces = 0;
+let isStanding = false;
+let dealerWin = false;
+let playerWin = false;
+let isPush = false;
+let isBlackjack = false;
+
+function preload() {
+  img = loadImage('images/Table Icon.png');
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  CardManager();
-  ButtonInput();
-}
 
-function CardManager() {
-  cardDrawer()
-  cardDrawer()
-  dealerDrawer()
+  playerHit();
+  playerHit();
+  dealerHit();
+
+  blackjackDetector();
+
+  ButtonInput()
 }
 
 function ButtonInput() {
   button = createButton("Hit");
   button.position(10, windowHeight / 2);
+  button.size(100, 50)
+  button.style("font-size", "24px");
   button.mousePressed(Hit);
   
   button = createButton("Stand");
-  button.position(windowWidth - 75, windowHeight / 2);
+  button.position(windowWidth - 110, windowHeight / 2);
+  button.size(100, 50)
+  button.style("font-size", "24px");
   button.mousePressed(Stand);
 }
 
-function cardDrawer() {
-  drawnCard = int(random(1, 13));
-  if (drawnCard == 11 || drawnCard == 12 || drawnCard == 13) {
-    playerScore += 10;
-  } else if (drawnCard == 1 && playerScore <= 10) {
-    playerScore += 11;
-  } else if (drawnCard == 1 && playerScore > 10) {
-    playerScore += 1;
-  } else {
-    playerScore += drawnCard;
-  }
-}
-
-function dealerDrawer() {
-  drawnCard = int(random(1, 13));
-  if (drawnCard == 11 || drawnCard == 12 || drawnCard == 13) {
-    dealerScore += 10;
-  } else if (drawnCard == 1 && dealerScore <= 10) {
-    dealerScore += 11;
-  } else if (drawnCard == 1 && dealerScore > 10) {
-    dealerScore += 1;
-  } else {
-    dealerScore += drawnCard;
-  }
-}
-
-function draw() {
-  background(255);
-  UserInterface();
-  winnerText();
-}
-
-function winnerText() {
-  if (playerScore > 21) {
-    text("Dealer Win", width / 2, height / 2);
-  } if ((playerScore > dealerScore || dealerScore > 21) && stand == true) {
-    text("You Win", width / 2 - 100, height / 2);
-  } else if (dealerScore > playerScore && stand == true) {
-    text("Dealer Win", width / 2 - 100, height / 2);
-  } else if (dealerScore == playerScore && stand == true) {
-    text("Push", width / 2 - 100, height / 2);
-  }
-}
-
 function Hit() {
-  if (playerScore < 21 && stand == false) {
-    cardDrawer()
+  if (playerScore < 21 && isStanding == false) {
+    playerHit()
   }
 }
 
 function Stand() {
   if(playerScore <= 21) {
-  dealerTurn()
-  stand = true
+    dealerTurn()
+    isStanding = true
+    }
+}
+
+function draw() {
+  background(255);
+
+  displayText();
+
+  playerBustDetector();
+
+  whoWon();
+}
+
+
+function playerHit() {
+  drawnCard = int(random(1, 14));
+
+  if (drawnCard == 11 || drawnCard == 12 || drawnCard == 13) {
+    playerScore += 10;
+  } else if (drawnCard == 1) {
+    playerScore += 11;
+    playerHighAces++;
+  } else {
+    playerScore += drawnCard;
+  }
+}
+
+function dealerHit() {
+  drawnCard = int(random(1, 14));
+
+  if (drawnCard == 11 || drawnCard == 12 || drawnCard == 13) {
+    dealerScore += 10;
+  } else if (drawnCard == 1) {
+    dealerScore += 11;
+    dealerHighAces++;
+  } else {
+    dealerScore += drawnCard;
   }
 }
 
 function dealerTurn() {
-  while (dealerScore < 17) {
-  dealerDrawer()
+  while (dealerScore <= 17) {
+    dealerHit();
+
+    if (dealerScore > 21) {
+      if (dealerHighAces > 1) {
+        dealerScore -= 10;
+        dealerHighAces--;
+      } else {
+        playerWin = true;
+      }
+    }
   }
 }
 
-function UserInterface() {
+function whoWon() {
+  if (playerScore > dealerScore && isStanding == true && dealerWin == false) {
+    playerWin = true;
+  } else if (
+    playerScore < dealerScore &&
+    isStanding == true &&
+    playerWin == false
+  ) {
+    dealerWin = true;
+  } else if (playerScore == dealerScore && isStanding == true) {
+    isPush = true;
+  }
+}
+
+function displayText() {
+  FancyUI()
+
+  textAlign(CENTER)
+  fill("black")
+  textSize(24);
+  text("Player: " + playerScore + "\n" + "Dealer: " + dealerScore, width / 2, 45);
+  if (isPush) {
+    text("Push", width / 2, height / 2);
+  } else if (isBlackjack) {
+    text("Blackjack 🃏", width / 2, height / 2);
+  } else if (dealerWin) {
+    text("Dealer Wins", width / 2, height / 2);
+  } else if (playerWin) {
+    text("Player Wins", width / 2, height / 2);
+  }
+}
+
+function FancyUI() {
   fill("green");
   rect(0, 0, width, 20);
   textSize(16)
@@ -95,9 +145,33 @@ function UserInterface() {
   fill("white");
   text("Blackjack | By: @LucasFromDK & @Th3-Duck", 20, 15);
   text("❌", windowWidth - 20, 15);
-  //Scores
-  fill("black");
-  textSize(24);
-  text("Your Hand: " + playerScore, windowWidth / 2 - 100, 40);
-  text("Dealer Hand: " + dealerScore, windowWidth / 2 - 100, 60);
+  //Table Image
+  imageMode(CENTER)
+  image (img, windowWidth/2, windowHeight/2)
+}
+
+function playerBustDetector() {
+  if (playerScore > 21) {
+    if (playerHighAces > 1) {
+      playerScore -= 10;
+      playerHighAces--;
+    } else {
+      dealerWin = true;
+      isStanding = true;
+    }
+  }
+}
+
+function blackjackDetector() {
+  if (playerScore == 21) {
+    dealerHit();
+
+    if (dealerScore == 21) {
+      isPush = true;
+      isStanding = true;
+    } else {
+      isBlackjack = true;
+      isStanding = true;
+    }
+  }
 }
