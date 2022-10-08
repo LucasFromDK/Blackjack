@@ -106,7 +106,6 @@ function draw() {
   whoWon();
 }
 
-
 function playerHit() {
   if (!isStanding) {
     drawnCard = int(random(1, 14));
