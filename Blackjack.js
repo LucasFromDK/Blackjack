@@ -7,7 +7,7 @@ let surrenderButton = createButton("SURRENDER 25 CHIPS");
 let noSurrenderButton = createButton("NOT AVAILABE");
 
 function preload() {
-  img = loadImage('images/Table Icon 2.png');
+  img = loadImage('images/Table Icon.png');
 }
 
 function setup() {
@@ -171,15 +171,15 @@ function displayText() {
   ButtonInput()
 
   if (isPush) {
-    text("Push", width / 2, height / 2);
+    text("Push", width / 2, height / 2 + 15);
     chipScore = oldScore + betAmount;
   } else if (isBlackjack) {
-    text("Blackjack 🃏", width / 2, height / 2);
+    text("Blackjack 🃏", width / 2, height / 2 + 15);
     chipScore = oldScore + betAmount * 2 * (3 / 2);
   } else if (dealerWin) {
-    text("Dealer Wins", width / 2, height / 2);
+    text("Dealer Wins", width / 2, height / 2 + 15);
   } else if (playerWin) {
-    text("Player Wins", width / 2, height / 2);
+    text("Player Wins", width / 2, height / 2 + 15);
     chipScore = oldScore + betAmount * 2;
   }
 }
