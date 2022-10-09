@@ -3,6 +3,9 @@ let isStanding = false, dealerWin = false, playerWin = false, isPush = false, is
 let chipScore = 1000, oldScore = 1000;
 let betAmount = 50;
 
+let playerCardOne = 0
+let playerCardTwo = 1
+
 let surrenderButton = createButton("SURRENDER 25 CHIPS");
 let noSurrenderButton = createButton("NOT AVAILABE");
 
@@ -43,11 +46,41 @@ function gameStart() {
     oldScore = chipScore;
 
     playerHit();
+    showCardOne()
+    
     playerHit();
+    showCardTwo()
+
     dealerHit();
 
     blackjackDetector();
   }
+}
+
+function showCardOne() {
+    playerCardOne = drawnCard  
+    if (drawnCard == 1) {
+    playerCardOne = "🂡"
+    } else if (drawnCard == 11) {
+      playerCardOne = "Jack"
+    } else if (drawnCard == 12) {
+      playerCardOne = "Queen"
+    } else if (drawnCard == 13) {
+      playerCardOne = "King"
+    }
+}
+
+function showCardTwo() {
+    playerCardTwo = drawnCard  
+    if (drawnCard == 1) {
+    playerCardTwo = "🂡"
+    } else if (drawnCard == 11) {
+      playerCardTwo = "Jack"
+    } else if (drawnCard == 12) {
+      playerCardTwo = "Queen"
+    } else if (drawnCard == 13) {
+      playerCardTwo = "King"
+    }
 }
 
 function ButtonInput() {
@@ -118,6 +151,7 @@ function playerHit() {
     } else {
       playerScore += drawnCard;
     }
+    console.log(drawnCard)
     hasPlayerMoved++;
   }
 }
@@ -168,6 +202,7 @@ function displayText() {
   FancyUI()
   Scoreboard()
   ButtonInput()
+  cardDisplay()
 
   if (isPush) {
     text("Push", width / 2, height / 2 + 15);
@@ -176,9 +211,9 @@ function displayText() {
     text("Blackjack 🃏", width / 2, height / 2 + 15);
     chipScore = oldScore + betAmount * 2 * (3 / 2);
   } else if (dealerWin) {
-    text("Dealer Wins", width / 2, height / 2 + 15);
+    text("Dealer Wins", width / 2, height / 2 + 100);
   } else if (playerWin) {
-    text("Player Wins", width / 2, height / 2 + 15);
+    text("Player Wins", width / 2, height / 2 + 100);
     chipScore = oldScore + betAmount * 2;
   }
 }
@@ -203,6 +238,13 @@ function FancyUI() {
   //Table Image
   imageMode(CENTER)
   image (img, windowWidth/2, windowHeight/2)
+  fill("Black")
+  textSize(24)
+}
+
+function cardDisplay() {
+  textAlign(LEFT)
+  text("Your cards: " + playerCardOne + ", " + playerCardTwo, 10,  width/2 - 230)
 }
 
 function playerBustDetector() {
