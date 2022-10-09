@@ -7,12 +7,20 @@ let surrenderButton = createButton("SURRENDER 25 CHIPS");
 let noSurrenderButton = createButton("NOT AVAILABE");
 
 function preload() {
-  img = loadImage('images/Table Icon.png');
+  img = loadImage('images/Table Icon 2.png');
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   gameStart()
+}
+
+function draw() {
+  background(246, 246, 246);
+  displayText();
+
+  playerBustDetector();
+  whoWon();
 }
 
 function gameStart() {
@@ -96,14 +104,6 @@ function Stand() {
     dealerTurn()
     isStanding = true
     }
-}
-
-function draw() {
-  background(255);
-  displayText();
-
-  playerBustDetector();
-  whoWon();
 }
 
 function playerHit() {
