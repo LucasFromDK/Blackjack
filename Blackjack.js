@@ -244,7 +244,7 @@ function FancyUI() {
 
 function cardDisplay() {
   textAlign(LEFT)
-  text("Your cards: " + playerCardOne + ", " + playerCardTwo, 10,  width/2 - 230)
+  text("Your cards: " + playerCardOne + ", " + playerCardTwo, 10,  windowHeight/2 - 10)
 }
 
 function playerBustDetector() {
