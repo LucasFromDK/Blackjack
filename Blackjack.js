@@ -7,7 +7,7 @@ let surrenderButton = createButton("SURRENDER 25 CHIPS");
 let noSurrenderButton = createButton("NOT AVAILABE");
 
 function preload() {
-  img = loadImage('images/Table Icon.png');
+  img = loadImage('images/New Logo 1.png');
 }
 
 function setup() {
@@ -16,7 +16,7 @@ function setup() {
 }
 
 function draw() {
-  background(246, 246, 246);
+  background(255);
   displayText();
 
   playerBustDetector();
@@ -73,23 +73,23 @@ function ButtonInput() {
 
   //Middle
   button = createButton("Restart and Bet 50");
-  button.position(windowWidth / 2 - 100, 115);
-  button.size(200, 30);
-  button.style("font-size", "20px");
+  button.position(windowWidth / 2 - 100, 110);
+  button.size(200, 25);
+  button.style("font-size", "18px");
   button.mousePressed(gameStart);
 
   //Surrender + Surrencer Blocker
   if (hasPlayerMoved <= 2) {
     button = createButton("Surrender for 25");
-    button.position(windowWidth / 2 - 100, 150);
-    button.size(200, 30);
-    button.style("font-size", "20px");
+    button.position(windowWidth / 2 - 100, 140);
+    button.size(200, 25);
+    button.style("font-size", "18px");
     button.mousePressed(Surrender);
   } else if (hasPlayerMoved > 2) {
     button = createButton("Not Availabe");
-    button.position(windowWidth / 2 - 100, 150);
-    button.size(200, 30);
-    button.style("font-size", "20px");
+    button.position(windowWidth / 2 - 100, 140);
+    button.size(200, 25);
+    button.style("font-size", "18px");
   }
 }
 
@@ -118,7 +118,6 @@ function playerHit() {
     } else {
       playerScore += drawnCard;
     }
-
     hasPlayerMoved++;
   }
 }
