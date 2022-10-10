@@ -48,44 +48,43 @@ function gameStart() {
 }
 
 function ButtonInput() {
-  //Left Side
+  //Bottom Mid
   button = createButton("Hit");
-  button.position(10, windowHeight / 2);
-  button.size(100, 50);
+  button.position(windowWidth / 2 - 50, windowHeight - 110);
+  button.size(100, 100);
   button.style("font-size", "24px");
   button.mousePressed(Hit);
   
   button = createButton("Doubledown");
-  button.position(10, windowHeight / 2 + 60);
-  button.size(130, 50);
+  button.position(windowWidth/2 - 190, windowHeight -55);
+  button.size(130, 45);
   button.style("font-size", "20px");
   button.mousePressed(doubleDown);
 
   //Right Side
   button = createButton("Stand");
-  button.position(windowWidth - 110, windowHeight / 2);
-  button.size(100, 50);
+  button.position(windowWidth / 2 - 190, windowHeight - 110);
+  button.size(130, 45);
   button.style("font-size", "24px");
   button.mousePressed(Stand);
 
-  //Middle
-  button = createButton("Restart and Bet 50");
-  button.position(windowWidth / 2 - 100, 110);
-  button.size(200, 25);
+  button = createButton("Play & Bet 50");
+  button.position(windowWidth / 2 + 60, windowHeight - 110);
+  button.size(130, 45);
   button.style("font-size", "18px");
   button.mousePressed(gameStart);
 
   //Surrender + Surrencer Blocker
   if (hasPlayerMoved <= 2) {
     button = createButton("Surrender for 25");
-    button.position(windowWidth / 2 - 100, 140);
-    button.size(200, 25);
+    button.position(windowWidth / 2 + 60, windowHeight - 55);
+    button.size(130, 45);
     button.style("font-size", "18px");
     button.mousePressed(Surrender);
   } else if (hasPlayerMoved > 2) {
     button = createButton("Not Availabe");
-    button.position(windowWidth / 2 - 100, 140);
-    button.size(200, 25);
+    button.position(windowWidth / 2 + 60, windowHeight - 55);
+    button.size(130, 45);
     button.style("font-size", "18px");
   }
 }
@@ -198,7 +197,7 @@ function Scoreboard() {
   textAlign(CENTER)
   fill("black")
   textSize(24);
-  text("Chips: " + chipScore + "\nPlayer: " + playerScore + ", Aces: " + playerHighAces + " 🂡"  + "\nDealer: " + dealerScore + ", Aces: " + dealerHighAces + " 🂡", width / 2, 45);
+  text("Player: " + playerScore + ", Aces: " + playerHighAces + " 🂡"  + "\nDealer: " + dealerScore + ", Aces: " + dealerHighAces + " 🂡" + "\nChips: " + chipScore, width / 2, 45);
 }
 
 function FancyUI() {
@@ -225,8 +224,8 @@ function TableImage() {
 
 function cardDisplay() {
   //Player
-  textAlign(LEFT), textStyle(BOLD);
-  text("Your cards:" + playerCards, 10,  windowHeight/2 - 10)
+  textAlign(CENTER), textStyle(BOLD);
+  text("Your cards:" + playerCards, windowWidth / 2,  windowHeight - 120)
 }
 
 function playerBustDetector() {
