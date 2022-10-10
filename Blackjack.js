@@ -3,8 +3,10 @@ let isStanding = false, dealerWin = false, playerWin = false, isPush = false, is
 let chipScore = 1000, oldScore = 1000;
 let betAmount = 50;
 
+let playerCards = []
+
 let playerCardOne = 0
-let playerCardTwo = 1
+let playerCardTwo = 0
 
 let surrenderButton = createButton("SURRENDER 25 CHIPS");
 let noSurrenderButton = createButton("NOT AVAILABE");
@@ -28,59 +30,21 @@ function draw() {
 
 function gameStart() {
   betAmount = 50;
-
   oldScore = chipScore;
   if (chipScore >= betAmount) {
-    drawnCard = 0;
-    playerScore = 0;
-    dealerScore = 0;
-    playerHighAces = 0;
-    dealerHighAces = 0;
-    isStanding = false;
-    dealerWin = false;
-    playerWin = false;
-    isPush = false;
-    isBlackjack = false;
-    hasPlayerMoved = 0;
+    drawnCard = 0, playerScore = 0, dealerScore = 0, playerHighAces = 0, dealerHighAces = 0, hasPlayerMoved = 0;
+    isStanding = false, dealerWin = false, playerWin = false, isPush = false, isBlackjack = false
+    playerCards = []
+    
     chipScore = oldScore - betAmount;
     oldScore = chipScore;
 
     playerHit();
-    showCardOne()
-    
     playerHit();
-    showCardTwo()
 
     dealerHit();
-
     blackjackDetector();
   }
-}
-
-function showCardOne() {
-    playerCardOne = drawnCard  
-    if (drawnCard == 1) {
-    playerCardOne = "🂡"
-    } else if (drawnCard == 11) {
-      playerCardOne = "Jack"
-    } else if (drawnCard == 12) {
-      playerCardOne = "Queen"
-    } else if (drawnCard == 13) {
-      playerCardOne = "King"
-    }
-}
-
-function showCardTwo() {
-    playerCardTwo = drawnCard  
-    if (drawnCard == 1) {
-    playerCardTwo = "🂡"
-    } else if (drawnCard == 11) {
-      playerCardTwo = "Jack"
-    } else if (drawnCard == 12) {
-      playerCardTwo = "Queen"
-    } else if (drawnCard == 13) {
-      playerCardTwo = "King"
-    }
 }
 
 function ButtonInput() {
@@ -148,10 +112,20 @@ function playerHit() {
     } else if (drawnCard == 1) {
       playerScore += 11;
       playerHighAces++;
+      append(playerCards, " A")
     } else {
       playerScore += drawnCard;
+      append(playerCards, str(" " + drawnCard))
     }
-    console.log(drawnCard)
+
+    if (drawnCard == 11) {
+      append(playerCards, " J")
+    } else if (drawnCard == 12) {
+      append(playerCards, " Q")
+    } else if (drawnCard == 13) {
+      append(playerCards, " K")
+    }
+
     hasPlayerMoved++;
   }
 }
@@ -213,9 +187,9 @@ function displayText() {
     text("Blackjack 🃏", width / 2, height / 2 + 15);
     chipScore = oldScore + betAmount * 2 * (3 / 2);
   } else if (dealerWin) {
-    text("Dealer Wins", width / 2, height / 2 + 100);
+    text("Dealer Wins", width / 2, height / 2 + 97);
   } else if (playerWin) {
-    text("Player Wins", width / 2, height / 2 + 100);
+    text("Player Wins", width / 2, height / 2 + 97);
     chipScore = oldScore + betAmount * 2;
   }
 }
@@ -250,8 +224,9 @@ function TableImage() {
 }
 
 function cardDisplay() {
+  //Player
   textAlign(LEFT), textStyle(BOLD);
-  text("Your cards: " + playerCardOne + ", " + playerCardTwo, 10,  windowHeight/2 - 10)
+  text("Your cards:" + playerCards, 10,  windowHeight/2 - 10)
 }
 
 function playerBustDetector() {
