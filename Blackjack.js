@@ -10,7 +10,7 @@ let surrenderButton = createButton("SURRENDER 25 CHIPS");
 let noSurrenderButton = createButton("NOT AVAILABE");
 
 function preload() {
-  img = loadImage('images/New Logo 1.png');
+  img = loadImage('images/Table Icon 2.png');
 }
 
 function setup() {
@@ -240,14 +240,17 @@ function FancyUI() {
 }
 
 function TableImage() {
-  imageMode(CENTER)
-  image(img, windowWidth/2, windowHeight/2)
-  fill("Black")
-  textSize(24)
+  let scale = 0.31;
+  imageMode(CENTER);
+  image(img, 0.5*width, 0.5*height, scale*width, scale*img.height*width/img.width);
+  fill(255, 133, 27);
+  textStyle(BOLD), textSize(20);
+  text("Dealer Stands S17", windowWidth/2, windowHeight/2 + 160);
+  textStyle(NORMAL);
 }
 
 function cardDisplay() {
-  textAlign(LEFT)
+  textAlign(LEFT), textStyle(BOLD);
   text("Your cards: " + playerCardOne + ", " + playerCardTwo, 10,  windowHeight/2 - 10)
 }
 
