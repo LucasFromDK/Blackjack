@@ -235,7 +235,7 @@ function FancyUI() {
   text("🃏", 1, 16);
   textSize(12);
   fill("white");
-  text("Blackjack | By: @LucasFromDK & @Th3-Duck", 20, 15);
+  text("Blackjack | By: @LucasFromDK & @AugmentedDuck", 20, 15);
   text("❌", windowWidth - 20, 15);
 }
 
