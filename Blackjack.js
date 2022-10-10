@@ -199,11 +199,13 @@ function whoWon() {
 }
 
 function displayText() {
+  TableImage()
   FancyUI()
   Scoreboard()
   ButtonInput()
   cardDisplay()
 
+  textAlign(CENTER)
   if (isPush) {
     text("Push", width / 2, height / 2 + 15);
     chipScore = oldScore + betAmount;
@@ -235,9 +237,11 @@ function FancyUI() {
   fill("white");
   text("Blackjack | By: @LucasFromDK & @Th3-Duck", 20, 15);
   text("❌", windowWidth - 20, 15);
-  //Table Image
+}
+
+function TableImage() {
   imageMode(CENTER)
-  image (img, windowWidth/2, windowHeight/2)
+  image(img, windowWidth/2, windowHeight/2)
   fill("Black")
   textSize(24)
 }
