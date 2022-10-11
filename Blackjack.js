@@ -2,6 +2,7 @@ let drawnCard = 0, playerScore = 0, dealerScore = 0, playerHighAces = 0, dealerH
 let isStanding = false, dealerWin = false, playerWin = false, isPush = false, isBlackjack = false;
 let chipScore = 1000, oldScore = 1000;
 let betAmount = 50;
+let TableIcon = 0
 
 let playerCards = [], dealerCards = [];
 
@@ -9,7 +10,8 @@ let surrenderButton = createButton("SURRENDER 25 CHIPS");
 let noSurrenderButton = createButton("NOT AVAILABE");
 
 function preload() {
-  img = loadImage('images/Table Icon 2.png');
+  img = loadImage('images/Table Icon 1.png');
+  alt = loadImage("images/Table Icon 2.png")
 }
 
 function setup() {
@@ -44,7 +46,24 @@ function gameStart() {
   }
 }
 
-function ButtonInput() {
+function bgButton() {
+  button = createButton("Change Logo");
+  button.position(10, height - 55);
+  button.size(130, 45);
+  button.style("font-size", "18px");
+  button.mousePressed(bgChange);
+}
+
+function bgChange(){
+  if (TableIcon == 0) {
+    TableIcon++;
+  } else if (TableIcon == 1) {
+    TableIcon = TableIcon - 1;
+  }
+}
+
+
+function playButtons() {
   //Bottom Mid
   button = createButton("Hit");
   button.position(width / 2 - 50, height - 110);
@@ -182,7 +201,8 @@ function displayText() {
   TableImage()
   FancyUI()
   Scoreboard()
-  ButtonInput()
+  playButtons()
+  bgButton()
   cardDisplay()
 
   textAlign(CENTER)
@@ -220,6 +240,7 @@ function FancyUI() {
 }
 
 function TableImage() {
+  if (TableIcon == 0) { 
   let scale = 0.31;
   imageMode(CENTER);
   image(img, 0.5*width, 0.5*height, scale*width, scale*img.height*width/img.width);
@@ -227,6 +248,16 @@ function TableImage() {
   textStyle(BOLD), textSize(20);
   text("Dealer Stands S17", width/2, height/2 + 160);
   textStyle(NORMAL);
+  } else if (TableIcon == 1) {
+  let scale = 0.31;
+  imageMode(CENTER);
+  background(246, 246, 246)
+  image(alt, 0.5*width, 0.5*height, scale*width, scale*img.height*width/img.width);
+  fill(255, 133, 27);
+  textStyle(BOLD), textSize(20);
+  text("Dealer Stands S17", width/2, height/2 + 160);
+  textStyle(NORMAL);
+  }
 }
 
 function cardDisplay() {
