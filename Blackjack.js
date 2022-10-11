@@ -12,6 +12,7 @@ let noSurrenderButton = createButton("NOT AVAILABE");
 function preload() {
   img = loadImage("images/Table Icon 1.png");
   alt = loadImage("images/Table Icon 2.png");
+  //Sounds
   pWin = loadSound("sounds/playerWin.mp3");
   cardShuffle = loadSound("sounds/cardShuffle.wav")
   cardDraw = loadSound("sounds/cardDraw.wav")
