@@ -13,6 +13,8 @@ function preload() {
   img = loadImage("images/Table Icon 1.png");
   alt = loadImage("images/Table Icon 2.png");
   pWin = loadSound("sounds/playerWin.mp3");
+  cardShuffle = loadSound("sounds/cardShuffle.wav")
+  cardDraw = loadSound("sounds/cardDraw.wav")
 }
 
 function setup() {
@@ -35,9 +37,10 @@ function gameStart() {
     drawnCard = 0, playerScore = 0, dealerScore = 0, playerHighAces = 0, dealerHighAces = 0, hasPlayerMoved = 0;
     isStanding = false, dealerWin = false, playerWin = false, isPush = false, isBlackjack = false
     playerCards = [], dealerCards = []
-    
     chipScore = oldScore - betAmount;
     oldScore = chipScore;
+
+    cardShuffle.play()
 
     playerHit();
     playerHit();
@@ -109,6 +112,7 @@ function playButtons() {
 function Hit() {
   if (playerScore < 21 && isStanding == false) {
     playerHit();
+    cardDraw.play()
   }
 }
 
@@ -116,6 +120,7 @@ function Stand() {
   if(playerScore <= 21) {
     dealerTurn()
     isStanding = true
+    cardDraw.play()
     }
 }
 
@@ -218,8 +223,6 @@ function displayText() {
   } else if (playerWin) {
     text("Player Wins", width / 2, height / 2 + 97);
     chipScore = oldScore + betAmount * 2;
-    pWin.play()
-    noLoop()
   }
 }
 
