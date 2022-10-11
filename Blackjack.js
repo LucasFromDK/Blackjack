@@ -31,7 +31,7 @@ function gameStart() {
   if (chipScore >= betAmount) {
     drawnCard = 0, playerScore = 0, dealerScore = 0, playerHighAces = 0, dealerHighAces = 0, hasPlayerMoved = 0;
     isStanding = false, dealerWin = false, playerWin = false, isPush = false, isBlackjack = false
-    playerCards = []
+    playerCards = [], dealerCards = []
     
     chipScore = oldScore - betAmount;
     oldScore = chipScore;
