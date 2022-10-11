@@ -47,40 +47,40 @@ function gameStart() {
 function ButtonInput() {
   //Bottom Mid
   button = createButton("Hit");
-  button.position(windowWidth / 2 - 50, windowHeight - 110);
+  button.position(width / 2 - 50, height - 110);
   button.size(100, 100);
   button.style("font-size", "24px");
   button.mousePressed(Hit);
   
   button = createButton("Doubledown");
-  button.position(windowWidth/2 - 190, windowHeight -55);
+  button.position(width/2 - 190, height -55);
   button.size(130, 45);
   button.style("font-size", "20px");
   button.mousePressed(doubleDown);
 
-  //Right Side
+  //Left
   button = createButton("Stand");
-  button.position(windowWidth / 2 - 190, windowHeight - 110);
+  button.position(width / 2 - 190, height - 110);
   button.size(130, 45);
   button.style("font-size", "24px");
   button.mousePressed(Stand);
 
   button = createButton("Play & Bet 50");
-  button.position(windowWidth / 2 + 60, windowHeight - 110);
+  button.position(width / 2 + 60, height - 110);
   button.size(130, 45);
   button.style("font-size", "18px");
   button.mousePressed(gameStart);
 
-  //Surrender + Surrencer Blocker
+  //Right
   if (hasPlayerMoved <= 2) {
     button = createButton("Surrender for 25");
-    button.position(windowWidth / 2 + 60, windowHeight - 55);
+    button.position(width / 2 + 60, height - 55);
     button.size(130, 45);
     button.style("font-size", "18px");
     button.mousePressed(Surrender);
   } else if (hasPlayerMoved > 2) {
     button = createButton("Not Availabe");
-    button.position(windowWidth / 2 + 60, windowHeight - 55);
+    button.position(width / 2 + 60, height - 55);
     button.size(130, 45);
     button.style("font-size", "18px");
   }
@@ -216,7 +216,7 @@ function FancyUI() {
   textSize(12);
   fill("white");
   text("Blackjack | By: @LucasFromDK & @AugmentedDuck", 20, 15);
-  text("❌", windowWidth - 20, 15);
+  text("❌", width - 20, 15);
 }
 
 function TableImage() {
@@ -225,15 +225,15 @@ function TableImage() {
   image(img, 0.5*width, 0.5*height, scale*width, scale*img.height*width/img.width);
   fill(255, 133, 27);
   textStyle(BOLD), textSize(20);
-  text("Dealer Stands S17", windowWidth/2, windowHeight/2 + 160);
+  text("Dealer Stands S17", width/2, height/2 + 160);
   textStyle(NORMAL);
 }
 
 function cardDisplay() {
   //Player
   textAlign(CENTER), textStyle(BOLD);
-  text("Your Cards:" + playerCards, windowWidth / 2,  windowHeight - 120)
-  text("Dealer Cards:" + dealerCards, windowWidth / 2, 130)
+  text("Your Cards:" + playerCards, width / 2,  windowHeight - 120)
+  text("Dealer Cards:" + dealerCards, width / 2, 130)
 }
 
 function playerBustDetector() {
