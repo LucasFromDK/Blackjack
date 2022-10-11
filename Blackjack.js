@@ -3,10 +3,7 @@ let isStanding = false, dealerWin = false, playerWin = false, isPush = false, is
 let chipScore = 1000, oldScore = 1000;
 let betAmount = 50;
 
-let playerCards = []
-
-let playerCardOne = 0
-let playerCardTwo = 0
+let playerCards = [], dealerCards = [];
 
 let surrenderButton = createButton("SURRENDER 25 CHIPS");
 let noSurrenderButton = createButton("NOT AVAILABE");
@@ -137,8 +134,18 @@ function dealerHit() {
   } else if (drawnCard == 1) {
     dealerScore += 11;
     dealerHighAces++;
+    append(dealerCards, " A")
   } else {
     dealerScore += drawnCard;
+    append(dealerCards, str(" " + drawnCard))
+  }
+
+  if (drawnCard == 11) {
+    append(dealerCards, " J")
+  } else if (drawnCard == 12) {
+    append(dealerCards, " Q")
+  } else if (drawnCard == 13) {
+    append(dealerCards, " K")
   }
 }
 
@@ -225,7 +232,8 @@ function TableImage() {
 function cardDisplay() {
   //Player
   textAlign(CENTER), textStyle(BOLD);
-  text("Your cards:" + playerCards, windowWidth / 2,  windowHeight - 120)
+  text("Your Cards:" + playerCards, windowWidth / 2,  windowHeight - 120)
+  text("Dealer Cards:" + dealerCards, windowWidth / 2, 130)
 }
 
 function playerBustDetector() {
