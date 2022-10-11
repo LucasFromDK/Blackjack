@@ -10,8 +10,9 @@ let surrenderButton = createButton("SURRENDER 25 CHIPS");
 let noSurrenderButton = createButton("NOT AVAILABE");
 
 function preload() {
-  img = loadImage('images/Table Icon 1.png');
-  alt = loadImage("images/Table Icon 2.png")
+  img = loadImage("images/Table Icon 1.png");
+  alt = loadImage("images/Table Icon 2.png");
+  pWin = loadSound("sounds/playerWin.mp3");
 }
 
 function setup() {
@@ -217,6 +218,8 @@ function displayText() {
   } else if (playerWin) {
     text("Player Wins", width / 2, height / 2 + 97);
     chipScore = oldScore + betAmount * 2;
+    pWin.play()
+    noLoop()
   }
 }
 
