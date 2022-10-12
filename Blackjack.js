@@ -4,8 +4,6 @@ let chipScore = 1000, oldScore = 1000;
 let betAmount = 50;
 let TableIcon = 0
 
-let playerCheated = false
-
 let playerCards = [], dealerCards = [];
 
 let surrenderButton = createButton("SURRENDER 25 CHIPS");
@@ -28,8 +26,8 @@ function setup() {
 
 function draw() {
   background(255);
-  displayImages();
   displayText();
+  displayImages();
 
   playerBustDetector();
   whoWon();
@@ -61,12 +59,6 @@ function miscButtons() {
   button.size(130, 45);
   button.style("font-size", "18px");
   button.mousePressed(bgChange);
-
-  button = createButton("Add Chips");
-  button.position(10, height - 110);
-  button.size(130, 45);
-  button.style("font-size", "18px");
-  button.mousePressed(antiCheat);
 }
 
 function bgChange(){
@@ -77,13 +69,7 @@ function bgChange(){
   }
 }
 
-function antiCheat() {
-  playerCheated = true
-  TableImage()
-}
-
 function playButtons() {
-  
   //Bottom Mid
   button = createButton("Hit");
   button.position(width / 2 - 50, height - 110);
@@ -123,7 +109,7 @@ function playButtons() {
     button.size(130, 45);
     button.style("font-size", "18px");
   }
-}
+} 
 
 function Hit() {
   if (playerScore < 21 && isStanding == false) {
@@ -221,9 +207,7 @@ function whoWon() {
 
 function displayText() {
   Scoreboard()
-  if (playerCheated == false) {
   cardDisplay()
-  }
 
   textAlign(CENTER)
   if (isPush) {
@@ -267,7 +251,7 @@ function FancyUI() {
 }
 
 function TableImage() {
-  if (TableIcon == 0 && playerCheated == false) { 
+  if (TableIcon == 0) { 
   let scale = 0.31;
   imageMode(CENTER);
   image(img, 0.5*width, 0.5*height, scale*width, scale*img.height*width/img.width);
@@ -275,7 +259,7 @@ function TableImage() {
   textStyle(BOLD), textSize(20);
   text("Dealer Stands S17", width/2, height/2 + 160);
   textStyle(NORMAL);
-  } else if (TableIcon == 1 && playerCheated == false) {
+  } else if (TableIcon == 1) {
   let scale = 0.31;
   imageMode(CENTER);
   background(246, 246, 246)
@@ -284,16 +268,7 @@ function TableImage() {
   textStyle(BOLD), textSize(20);
   text("Dealer Stands S17", width/2, height/2 + 160);
   textStyle(NORMAL);
-  } else if (playerCheated == true) {
-    let scale = 0.43;
-    imageMode(CENTER);
-    background(246, 246, 246)
-    image(freeChips1, 0.5*width, 0.5*height, scale*width, scale*img.height*width/img.width);
-    fill(255, 133, 27);
-    textStyle(BOLD), textSize(20);
-    text("Cheater!", width/2, height/2 + 160);
-    textStyle(NORMAL);
-  }
+  } 
 }
 
 function cardDisplay() {
