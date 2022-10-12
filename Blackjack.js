@@ -28,6 +28,7 @@ function setup() {
 
 function draw() {
   background(255);
+  displayImages();
   displayText();
 
   playerBustDetector();
@@ -54,7 +55,7 @@ function gameStart() {
   }
 }
 
-function miscButton() {
+function miscButtons() {
   button = createButton("Change Logo");
   button.position(10, height - 55);
   button.size(130, 45);
@@ -82,6 +83,7 @@ function antiCheat() {
 }
 
 function playButtons() {
+  
   //Bottom Mid
   button = createButton("Hit");
   button.position(width / 2 - 50, height - 110);
@@ -218,15 +220,10 @@ function whoWon() {
 }
 
 function displayText() {
-  TableImage()
-  FancyUI()
   Scoreboard()
-  playButtons()
-  miscButton()
   if (playerCheated == false) {
   cardDisplay()
   }
-  
 
   textAlign(CENTER)
   if (isPush) {
@@ -241,6 +238,13 @@ function displayText() {
     text("Player Wins", width / 2, height / 2 + 97);
     chipScore = oldScore + betAmount * 2;
   }
+}
+
+function displayImages() {
+TableImage()
+FancyUI()
+playButtons()
+miscButtons()
 }
 
 function Scoreboard() {
@@ -281,7 +285,7 @@ function TableImage() {
   text("Dealer Stands S17", width/2, height/2 + 160);
   textStyle(NORMAL);
   } else if (playerCheated == true) {
-    let scale = 0.31;
+    let scale = 0.43;
     imageMode(CENTER);
     background(246, 246, 246)
     image(freeChips1, 0.5*width, 0.5*height, scale*width, scale*img.height*width/img.width);
