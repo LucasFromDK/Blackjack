@@ -26,8 +26,7 @@ function setup() {
 
 function draw() {
   background(255);
-  displayText();
-  displayImages();
+  display();
 
   playerBustDetector();
   whoWon();
@@ -122,7 +121,6 @@ function Stand() {
   if(playerScore <= 21) {
     dealerTurn()
     isStanding = true
-    cardDraw.play()
     }
 }
 
@@ -205,7 +203,11 @@ function whoWon() {
   }
 }
 
-function displayText() {
+function display() {
+  TableImage()
+  FancyUI()
+  playButtons()
+  miscButtons()
   Scoreboard()
   cardDisplay()
 
@@ -224,12 +226,6 @@ function displayText() {
   }
 }
 
-function displayImages() {
-TableImage()
-FancyUI()
-playButtons()
-miscButtons()
-}
 
 function Scoreboard() {
   textAlign(CENTER)
