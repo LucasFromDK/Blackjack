@@ -4,6 +4,8 @@ let chipScore = 1000, oldScore = 1000;
 let betAmount = 50;
 let TableIcon = 0
 
+let playerCheated = false
+
 let playerCards = [], dealerCards = [];
 
 let surrenderButton = createButton("SURRENDER 25 CHIPS");
@@ -12,6 +14,7 @@ let noSurrenderButton = createButton("NOT AVAILABE");
 function preload() {
   img = loadImage("images/Table Icons/Table Icon 1.png");
   alt = loadImage("images/Table Icons/Table Icon 2.png");
+  freeChips1 = loadImage("images/freeChips.gif")
   //Sounds
   pWin = loadSound("sounds/playerWin.mp3");
   cardShuffle = loadSound("sounds/cardShuffle.wav")
@@ -57,6 +60,12 @@ function miscButton() {
   button.size(130, 45);
   button.style("font-size", "18px");
   button.mousePressed(bgChange);
+
+  button = createButton("Add Chips");
+  button.position(10, height - 110);
+  button.size(130, 45);
+  button.style("font-size", "18px");
+  button.mousePressed(antiCheat);
 }
 
 function bgChange(){
@@ -67,6 +76,10 @@ function bgChange(){
   }
 }
 
+function antiCheat() {
+  playerCheated = true
+  TableImage()
+}
 
 function playButtons() {
   //Bottom Mid
@@ -210,7 +223,10 @@ function displayText() {
   Scoreboard()
   playButtons()
   miscButton()
+  if (playerCheated == false) {
   cardDisplay()
+  }
+  
 
   textAlign(CENTER)
   if (isPush) {
@@ -247,7 +263,7 @@ function FancyUI() {
 }
 
 function TableImage() {
-  if (TableIcon == 0) { 
+  if (TableIcon == 0 && playerCheated == false) { 
   let scale = 0.31;
   imageMode(CENTER);
   image(img, 0.5*width, 0.5*height, scale*width, scale*img.height*width/img.width);
@@ -255,7 +271,7 @@ function TableImage() {
   textStyle(BOLD), textSize(20);
   text("Dealer Stands S17", width/2, height/2 + 160);
   textStyle(NORMAL);
-  } else if (TableIcon == 1) {
+  } else if (TableIcon == 1 && playerCheated == false) {
   let scale = 0.31;
   imageMode(CENTER);
   background(246, 246, 246)
@@ -264,6 +280,15 @@ function TableImage() {
   textStyle(BOLD), textSize(20);
   text("Dealer Stands S17", width/2, height/2 + 160);
   textStyle(NORMAL);
+  } else if (playerCheated == true) {
+    let scale = 0.31;
+    imageMode(CENTER);
+    background(246, 246, 246)
+    image(freeChips1, 0.5*width, 0.5*height, scale*width, scale*img.height*width/img.width);
+    fill(255, 133, 27);
+    textStyle(BOLD), textSize(20);
+    text("Cheater!", width/2, height/2 + 160);
+    textStyle(NORMAL);
   }
 }
 
