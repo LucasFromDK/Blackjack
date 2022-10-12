@@ -51,7 +51,7 @@ function gameStart() {
   }
 }
 
-function bgButton() {
+function miscButton() {
   button = createButton("Change Logo");
   button.position(10, height - 55);
   button.size(130, 45);
@@ -209,7 +209,7 @@ function displayText() {
   FancyUI()
   Scoreboard()
   playButtons()
-  bgButton()
+  miscButton()
   cardDisplay()
 
   textAlign(CENTER)
